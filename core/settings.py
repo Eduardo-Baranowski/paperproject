@@ -4,6 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import os
+import django_heroku
 from decouple import config
 from unipath import Path
 import dj_database_url
@@ -132,3 +133,4 @@ STATICFILES_DIRS = (
 #############################################################
 #############################################################
 LOGOUT_REDIRECT_URL = '/'
+django_heroku.settings(locals())
