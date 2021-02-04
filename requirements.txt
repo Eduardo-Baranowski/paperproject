@@ -12,3 +12,6 @@ whitenoise
 django-heroku==0.3.1
 django-mathfilters==1.0.0
 numpy==1.19.5
+anaconda==0.0.1.1
+conda==4.3.16
+
