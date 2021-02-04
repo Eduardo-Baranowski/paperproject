@@ -7,7 +7,7 @@ import psycopg2
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import *
-import pandas as pd
+#import pandas as pd
 from django.http import HttpResponse, HttpResponseRedirect
 import uuid
 from django.forms.models import model_to_dict
