@@ -1,0 +1,129 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header"><h4>Editar Paper</h4></div>
+        <div class="card-body">
+
+
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header"><strong>Editar Item do Paper</strong> Elements</div>
+                        <div class="card-body">
+                            <form action="paper/editar/paper/editar_paper/{{ itens.id}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Vendedor</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="vendedor"
+                                               value="{{itens.id_usuario}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Telefone</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="telefone"
+                                               value="{{itens.telefone}}">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Data</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="date" name="data"
+                                               value="{{itens.data_monitoria.isoformat}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Quantidade de Erros Graves</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="number" name="errosGraves"
+                                               value="{{itens.qtErrosGraves}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Pontos GE</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="number" name="pontosGe"
+                                               value="{{itens.pontosGe}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Pontos Comportamental</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="number" name="pontosComportamental"
+                                               value="{{itens.pontosComportamental}}">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Pontos</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="number" name="pontos"
+                                               value="{{itens.pontos}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Proposta</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" type="text" name="proposta"
+                                               value="{{itens.proposta}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Gravação</label>
+                                    <label class="col-md-3 col-form-label">{{itens.audio}}</label>
+                                    <div class="col-md-9">
+                                        {% if itens.audio != ""%}
+                                        <input class="form-control" type="file" style="display:none;" id="audio"
+                                               name="audio" value="{{itens.audio}}">
+                                        <label class="subs_arq" for="audio">Clique aqui para substituir o
+                                            arquivo!</label>
+                                        {% else %}
+                                        <input class="form-control" type="file" id="audio" name="audio"
+                                               value="{{itens.audio}}">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-sm btn-primary" type="submit"> Salvar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}

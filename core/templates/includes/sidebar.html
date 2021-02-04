@@ -1,0 +1,144 @@
+<div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+    <div class="c-sidebar-brand d-lg-down-none">
+        <svg class="c-sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
+            <use xlink:href="/static/assets/brand/coreui.svg#full"></use>
+        </svg>
+        <svg class="c-sidebar-brand-minimized" width="46" height="46" alt="CoreUI Logo">
+            <use xlink:href="/static/assets/brand/coreui.svg#signet"></use>
+        </svg>
+    </div>
+    <ul class="c-sidebar-nav">
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-notes"></use>
+            </svg>
+            Paper</a></li>
+        <li class="c-sidebar-nav-title">Ações</li>
+        {% if request.user.is_superuser %}
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="usepaper">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-money"></use>
+            </svg>
+            Paper de Venda</a>
+        </li>
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="usepapernaovenda">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-mood-bad"></use>
+            </svg>
+            Paper de Não Venda</a>
+        </li>
+
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/listpaper">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-layers"></use>
+            </svg>
+            Papers</a>
+        </li>
+
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/insertitempaper">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-playlist-add"></use>
+            </svg>
+            Criar Item do Paper</a>
+        </li>
+
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/listpaperitem">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-folder-open"></use>
+            </svg>
+            Itens do Paper</a>
+        </li>
+
+        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
+                class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-bar-chart"></use>
+            </svg>
+            Relatórios</a>
+            <ul class="c-sidebar-nav-dropdown-items">
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/page-charts.html"><span
+                        class="c-sidebar-nav-icon"></span> Relatórios Gerais</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/gerarelatorio"><span
+                        class="c-sidebar-nav-icon"></span> Relatório Completo</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/gerarelatorivendedor"><span
+                        class="c-sidebar-nav-icon"></span> Relatório Ótimizado</a></li>
+            </ul>
+        </li>
+
+        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
+                class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-fork"></use>
+            </svg>
+            Versões</a>
+            <ul class="c-sidebar-nav-dropdown-items">
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/geranovaversao"><span
+                        class="c-sidebar-nav-icon"></span> Gerar Nova Versão</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/versoes"><span
+                        class="c-sidebar-nav-icon"></span> Visualizar Itens de Versões</a></li>
+            </ul>
+        </li>
+        {% else %}
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="/listpaper">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-layers"></use>
+            </svg>
+            Listar Papers</a>
+        </li>
+        {% endif %}
+
+        <li class="c-sidebar-nav-title">Sistemas Sky</li>
+
+        <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a
+                class="c-sidebar-nav-link c-sidebar-nav-dropdown-toggle" href="#">
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
+            </svg>
+            Sites</a>
+            <ul class="c-sidebar-nav-dropdown-items">
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                                                  href="https://skybrasil.force.com/credenciado/s/opportunity/0061I00000M1bdJQAR/28575244809-null-11gpp78p-livre"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> Sirius
+                    2.0</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                                                  href="https://www1.sky.com.br/site/postos-atendimento/"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> Busca do
+                    Credenciado</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                                                  href="https://www.geo.skybandalarga.com.br/geo/paginas/login.geo;jsessionid=clZewY6InS7p4--P2yAqIyNo59l-JAucIV2UlbGi7IwdQJI5BsjV!1150952684!1186809483"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> GEO Banda
+                    Larga</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="https://assine.sky.com.br/pos-pago"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> Site da
+                    Sky</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="https://www.correios.com.br/"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> Correios</a>
+                </li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="http://consultatelevendas.com.br/"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> Busca por
+                    Região</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                                                  href="https://www.sky.com.br/credenciados/postos-atendimento"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> Busca por
+                    Credenciado</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                                                  href="https://servicos.receita.fazenda.gov.br/Servicos/CPF/ConsultaSituacao/ConsultaPublica.asp"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> Receita
+                    Federal</a></li>
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link"
+                                                  href="http://192.168.3.111/crm/index.php?codmodulo=42"
+                                                  target="_blank"><span class="c-sidebar-nav-icon"></span> Smart</a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href={% url 'logout' %} >
+            <svg class="c-sidebar-nav-icon">
+                <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-account-logout"></use>
+            </svg>
+            Logout</a></li>
+        <li class="c-sidebar-nav-divider"></li>
+    </ul>
+    <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"
+            data-class="c-sidebar-minimized"></button>
+</div>

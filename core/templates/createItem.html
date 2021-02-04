@@ -1,0 +1,142 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+</head>
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header" align="center">Criação de Item Paper</div>
+        <div class="card-body">
+
+
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header"><strong>Criar Item</strong></div>
+                        <div class="card-body">
+                            <form class="form-horizontal" action="insertitem" method="post"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" class="label_create_item">Versão</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="versao">
+                                            {% for versao in versoes %}
+                                            <option value="{{versao}}">{{versao.id}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" class="label_create_item">Tipo</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="tipo">
+                                            {% for tipo in tipos %}
+                                            <option value="{{tipo}}">{{tipo}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" class="label_create_item">Grupo</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="grupo">
+                                            <option value="Processo">Processo</option>
+                                            <option value="Tecnica de venda">Técnica de Venda</option>
+                                            <option value="Comportamental">Comportamental</option>
+                                            <option value="Erro grave">Erro Grave</option>
+                                            <option value="Itens ge">Itens GE</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" class="label_create_item">Código</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="cod" type="text" name="cod"
+                                               placeholder="Insira o código"><span class="help-block">Por favor, digite o código!</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" class="label_create_item">Subitem</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="nome" name="nome" rows="9"
+                                                  placeholder="Conteúdo.."></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" class="label_create_item">Descrição</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="descricao" name="descricao" rows="9"
+                                                  placeholder="Conteúdo.."></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" class="label_create_item">Peso</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="peso" type="number" name="peso"
+                                               placeholder="Insira o peso"><span class="help-block">Por favor, digite o peso!</span>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-sm btn-primary" type="submit"> Criar Item do Paper</button>
+                                    <a class="btn btn-sm btn-secondary" role='button' href='usepaper'>Gerar Paper de
+                                        Venda</a>
+                                    <a class="btn btn-sm btn-behance" role='button' href='usepapernaovenda'>Gerar Paper
+                                        de Não venda</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#nome'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#descricao'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}

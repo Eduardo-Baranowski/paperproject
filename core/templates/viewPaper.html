@@ -1,0 +1,325 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+<script>
+</script>
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header" align="center">Paper</div>
+        <div class="card-body">
+            <div class="container">
+                <br><br>
+                <a class="btn btn-success" role='button' href='/listpaper'>Listar Todos os Papers</a>
+                <br><br>
+                <h1>Paper</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Admin</th>
+                        <th scope="col">Usuário</th>
+                        <th scope="col">Data da Monitoria</th>
+                        <th scope="col">Data da Ligação</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Proposta</th>
+                        <th scope="col">Erros Graves</th>
+                        <th scope="col">Nota 1</th>
+                        <th scope="col">Nota Comportamental</th>
+                        <th scope="col">Nota GE</th>
+                        {% if request.user.is_superuser %}
+                        <th scope="col">Ações</th>
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">{{ itens.tipo }}</th>
+                        <td>{{ itens.usuario }}</td>
+                        <td>{{ itens.id_usuario }}</td>
+                        <td>{{ itens.data_monitoria }}</td>
+                        <td>{{ itens.data_ligacao }}</td>
+                        <td>{{ itens.telefone }}</td>
+                        <td>{{ itens.proposta }}</td>
+                        <td>{{ itens.qtErrosGraves }}</td>
+                        <td> {{itens.pontos}}</td>
+                        <td> {{itens.pontosComportamental}}</td>
+                        <td> {{itens.pontosGe}}</td>
+                        <td>
+                            {% if request.user.is_superuser %}
+                            <a class="btn btn-danger" role='button' href='/paper/excluir/{{itens.id}}'
+                               onclick="return confirm('Are you sure you want to delete this item?');">Excluir
+                            </a>
+                            <button class="btn btn-primary" role="button"
+                                    onclick="window.location.href='/paper/editar/{{itens.id}}'">Editar
+                            </button>
+                            <button class="btn btn-dark" role='button'
+                                    onclick="window.location.href = '/paperaudio/download/{{ itens.id }}'">Áudio
+                            </button>
+                            {% endif %}
+                        </td>
+
+                    </tbody>
+
+                </table>
+
+
+
+                <h1>Itens</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Grupo</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Observações</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <h2 align="center">Itens de Processo</h2>
+                    {% for item in itens.paperitemassociado_set.all %}
+                    {% if item.paperItem.grupo == "Processo" %}
+                    <tr>
+                        <th scope="row">{{ item.paperItem.tipo }}</th>
+                        <td>{{ item.paperItem.grupo }}</td>
+                        <td>{{ item.paperItem.cod }}</td>
+                        <td>{{ item.paperItem.nome|striptags }}</td>
+                        <td>{{ item.paperItem.descricao|striptags }}</td>
+                        {% if item.paperItem.grupo == "Erro grave" %}
+                        <td> {{item.resposta}}</td>
+                        {% endif %}
+                        {% if item.paperItem.grupo != "Erro grave" %}
+                        <td> {{item.peso}}</td>
+                        {% endif %}
+                        <td> {{item.obs|striptags}}</td>
+                        {% if request.user.is_superuser %}
+                        <td>
+                            <a class="btn btn-danger" role='button' href='/paperitensassociados/excluir/{{ item.id }}'
+                               onclick="return confirm('Are you sure you want to delete this item?');">Excluir
+                            </a>
+                            <button class="btn btn-primary" role="button"
+                                    onclick="window.location.href='/paperitensassociados/editar/{{item.pk}}'">Editar
+                            </button>
+                        </td>
+                        {% else %}
+                        <td><a class="btn btn-primary" role="button" href="/contestar/{{item.id}}">Contestar</a></td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
+
+                    </tbody>
+
+                </table>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Grupo</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Observações</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <h2 align="center">Itens de Técnica de Venda</h2>
+                    {% for item in itens.paperitemassociado_set.all %}
+                    {% if item.paperItem.grupo == "Tecnica de venda" %}
+                    <tr>
+                        <th scope="row">{{ item.paperItem.tipo }}</th>
+                        <td>{{ item.paperItem.grupo }}</td>
+                        <td>{{ item.paperItem.cod }}</td>
+                        <td>{{ item.paperItem.nome|striptags }}</td>
+                        <td>{{ item.paperItem.descricao|striptags }}</td>
+                        {% if item.paperItem.grupo == "Erro grave" %}
+                        <td> {{item.resposta}}</td>
+                        {% endif %}
+                        {% if item.paperItem.grupo != "Erro grave" %}
+                        <td> {{item.peso}}</td>
+                        {% endif %}
+                        <td> {{item.obs|striptags}}</td>
+                        {% if request.user.is_superuser %}
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <button class="btn btn-primary" role="button"
+                                    onclick="window.location.href='/paperitensassociados/editar/{{item.pk}}'">Editar
+                            </button>
+                        </td>
+                        {% else %}
+                        <td><a class="btn btn-primary" role="button" href="/contestar/{{item.id}}">Contestar</a></td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Grupo</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Observações</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <h2 align="center">Itens Comportamentais</h2>
+                    {% for item in itens.paperitemassociado_set.all %}
+                    {% if item.paperItem.grupo == "Comportamental" %}
+                    <tr>
+                        <th scope="row">{{ item.paperItem.tipo }}</th>
+                        <td>{{ item.paperItem.grupo }}</td>
+                        <td>{{ item.paperItem.cod }}</td>
+                        <td>{{ item.paperItem.nome|striptags }}</td>
+                        <td>{{ item.paperItem.descricao|striptags }}</td>
+                        {% if item.paperItem.grupo == "Erro grave" %}
+                        <td> {{item.resposta}}</td>
+                        {% endif %}
+                        {% if item.paperItem.grupo != "Erro grave" %}
+                        <td> {{item.peso}}</td>
+                        {% endif %}
+                        <td> {{item.obs|striptags}}</td>
+                        {% if request.user.is_superuser %}
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <button class="btn btn-primary" role="button"
+                                    onclick="window.location.href='/paperitensassociados/editar/{{item.pk}}'">Editar
+                            </button>
+                        </td>
+                        {% else %}
+                        <td><a class="btn btn-primary" role="button" href="/contestar/{{item.id}}">Contestar</a></td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Grupo</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Observações</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <h2 align="center">Itens de Erros Graves</h2>
+                    {% for item in itens.paperitemassociado_set.all %}
+                    {% if item.paperItem.grupo == "Erro grave" %}
+                    <tr>
+                        <th scope="row">{{ item.paperItem.tipo }}</th>
+                        <td>{{ item.paperItem.grupo }}</td>
+                        <td>{{ item.paperItem.cod }}</td>
+                        <td>{{ item.paperItem.nome|striptags }}</td>
+                        <td>{{ item.paperItem.descricao|striptags }}</td>
+                        {% if item.paperItem.grupo == "Erro grave" %}
+                        <td> {{item.resposta}}</td>
+                        {% endif %}
+                        {% if item.paperItem.grupo != "Erro grave" %}
+                        <td> {{item.peso}}</td>
+                        {% endif %}
+                        <td> {{item.obs|striptags}}</td>
+                        {% if request.user.is_superuser %}
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <button class="btn btn-primary" role="button"
+                                    onclick="window.location.href='/paperitensassociados/editar/{{item.pk}}'">Editar
+                            </button>
+                        </td>
+                        {% else %}
+                        <td><a class="btn btn-primary" role="button" href="/contestar/{{item.id}}">Contestar</a></td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Grupo</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Observações</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <h2 align="center">Itens GE</h2>
+                    {% for item in itens.paperitemassociado_set.all %}
+                    {% if item.paperItem.grupo == "Itens ge" %}
+                    <tr>
+                        <th scope="row">{{ item.paperItem.tipo }}</th>
+                        <td>{{ item.paperItem.grupo }}</td>
+                        <td>{{ item.paperItem.cod }}</td>
+                        <td>{{ item.paperItem.nome|striptags }}</td>
+                        <td>{{ item.paperItem.descricao|striptags }}</td>
+                        <td> {{item.peso}}</td>
+                        <td> {{item.obs|striptags}}</td>
+                        {% if request.user.is_superuser %}
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <button class="btn btn-primary" role="button"
+                                    onclick="window.location.href='/paperitensassociados/editar/{{item.pk}}'">Editar
+                            </button>
+                        </td>
+                        {% else %}
+                        <td><a class="btn btn-primary" role="button" href="/contestar/{{item.id}}">Contestar</a></td>
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}

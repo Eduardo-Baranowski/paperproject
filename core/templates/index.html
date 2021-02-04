@@ -1,0 +1,857 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main class="c-main">
+    <div class="container-fluid">
+        <div class="fade-in">
+            <div class="row">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-gradient-primary">
+                        <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="text-value-lg">{{total}}</div>
+                                <div>Total de Papers</div>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-transparent dropdown-toggle p-0" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="c-icon">
+                                        <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                                                                                  href="/listpaper">Listar Papers</a><a
+                                        class="dropdown-item" href="/usepaper">Gerar Paper de Venda</a><a
+                                        class="dropdown-item" href="/usepapernaovenda">Gerar Paper de Não Venda</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
+                            <canvas class="chart" id="card-chart1" height="70" class="container"
+                                    totaljaneiro="{{ totaljaneiro }}" totalfevereiro="{{ totalfevereiro }}"
+                                    totalmarco="{{ totalmarco }}" totalabril="{{ totalabril }}"
+                                    totalmaio="{{ totalmaio }}" totaljunho="{{ totaljunho }}"
+                                    totaljulho="{{ totaljulho }}" totalagosto="{{ totalagosto }}"
+                                    totalsetembro="{{ totalsetembro }}" totaloutubro="{{ totaloutubro }}"
+                                    totalnovembro="{{ totalnovembro }}" totaldezembro="{{ totaldezembro }}"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-gradient-info">
+                        <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="text-value-lg">{{totalvenda}}</div>
+                                <div>Paper de Venda</div>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-transparent dropdown-toggle p-0" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="c-icon">
+                                        <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                                                                                  href="/listpaper">Listar Papers</a><a
+                                        class="dropdown-item" href="/usepaper">Gerar Paper de Venda</a></div>
+                            </div>
+                        </div>
+                        <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
+                            <canvas class="chart" id="card-chart2" height="70" class="container"
+                                    totaljaneirov="{{ totaljaneirov }}" totalfevereirov="{{ totalfevereirov }}"
+                                    totalmarcov="{{ totalmarcov }}" totalabrilv="{{ totalabrilv }}"
+                                    totalmaiov="{{ totalmaiov }}" totaljunhov="{{ totaljunhov }}"
+                                    totaljulhov="{{ totaljulhov }}" totalagostov="{{ totalagostov }}"
+                                    totalsetembrov="{{ totalsetembrov }}" totaloutubrov="{{ totaloutubrov }}"
+                                    totalnovembrov="{{ totalnovembrov }}"
+                                    totaldezembrov="{{ totaldezembrov }}"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-gradient-warning">
+                        <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="text-value-lg">{{totalnaovenda}}</div>
+                                <div>Paper de Não Venda</div>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-transparent dropdown-toggle p-0" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="c-icon">
+                                        <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-settings"></use>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                                                                                  href="/listpaper">Listar Papers</a><a
+                                        class="dropdown-item" href="/usepapernaovenda">Gerar Paper de Não Venda</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="c-chart-wrapper mt-3" style="height:70px;">
+                            <canvas class="chart" id="card-chart3" height="70" class="container"
+                                    totaljaneironv="{{ totaljaneironv }}" totalfevereironv="{{ totalfevereironv }}"
+                                    totalmarconv="{{ totalmarconv }}" totalabrilnv="{{ totalabrilnv }}"
+                                    totalmaionv="{{ totalmaionv }}" totaljunhonv="{{ totaljunhonv }}"
+                                    totaljulhonv="{{ totaljulhonv }}" totalagostonv="{{ totalagostonv }}"
+                                    totalsetembronv="{{ totalsetembronv }}" totaloutubronv="{{ totaloutubronv }}"
+                                    totalnovembronv="{{ totalnovembronv }}"
+                                    totaldezembronv="{{ totaldezembronv }}"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card text-white bg-gradient-danger">
+                        <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
+                            <div>
+                                <div class="text-value-lg">{{users}}</div>
+                                <div>Membros Ativos</div>
+                            </div>
+                            <div class="btn-group">
+                                <button class="btn btn-transparent dropdown-toggle p-0" type="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <svg class="c-icon">
+                                        <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-people"></use>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item"
+                                                                                  href="/admin/auth/user/">Gerenciar
+                                    Usuários</a><a class="dropdown-item" href="/admin/auth/group/">Gerenciar Grupos de
+                                    Usuários</a></div>
+                            </div>
+                        </div>
+                        <div class="c-chart-wrapper mt-3 mx-3" style="height:70px;">
+                            <canvas class="chart" id="card-chart4" height="70"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-->
+            </div>
+
+            <!-- /.row-->
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h4 class="card-title mb-0">Números</h4>
+                            <div class="small text-muted">{{mes}} {{ano}}</div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row text-center">
+                        <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                            <div class="text-muted">Papers no mês atual</div>
+                            <strong>{{totalmes}} Papers ({{porcentagem}}%)</strong>
+                            <div class="progress progress-xs mt-2">
+                                <div class="progress-bar bg-gradient-success" role="progressbar"
+                                     style="width:{{porcentagem}}%" aria-valuenow="40" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                            <div class="text-muted">Papers de Venda do mês</div>
+                            <strong>{{totalmesvenda}} Papers ({{porcentagemvenda}}%)</strong>
+                            <div class="progress progress-xs mt-2">
+                                <div class="progress-bar bg-gradient-info" role="progressbar"
+                                     style="width:{{porcentagemvenda}}%" aria-valuenow="20" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md mb-sm-2 mb-0">
+                            <div class="text-muted">Papers de não venda (mês)</div>
+                            <strong>{{totalmesnaovenda}} Papers ({{porcentagemnaovenda}}%)</strong>
+                            <div class="progress progress-xs mt-2">
+                                <div class="progress-bar bg-gradient-warning" role="progressbar"
+                                     style="width:{{porcentagemnaovenda}}%" aria-valuenow="60" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row-->
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Informações</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="c-callout c-callout-info"><small class="text-muted"><strong>Primeiro
+                                            item com mais erros:</strong> {{erro1}}</small>
+                                            <div class="text-value-lg">{{erro1qt}}</div>
+                                        </div>
+                                    </div>
+                                    <!-- /.col-->
+                                    <div class="col-6">
+                                        <div class="c-callout c-callout-danger"><small class="text-muted"><strong>Segundo
+                                            item com mais erros:</strong> {{erro2}}</small>
+                                            <div class="text-value-lg">{{erro2qt}}</div>
+                                        </div>
+                                    </div>
+                                    <!-- /.col-->
+                                </div>
+                                <!-- /.row-->
+
+                            </div>
+                            <!-- /.col-->
+                            <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="c-callout c-callout-success"><small class="text-muted"><strong>Terceiro
+                                            item com mais erros:</strong> {{erro3}}</small>
+                                            <div class="text-value-lg">{{erro3qt}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="c-callout c-callout-warning"><small class="text-muted"><strong>Erros
+                                            Totais</strong></small>
+                                            <div class="text-value-lg">{{conterros}} erros</div>
+                                        </div>
+                                    </div>
+                                    <!-- /.col-->
+
+                                    <!-- /.col-->
+                                </div>
+                                <!-- /.row-->
+
+                            </div>
+                            <!-- /.col-->
+                        </div>
+                        <!-- /.row--><br>
+
+                    </div>
+                    <hr class="mt-0">
+                </div>
+            </div>
+            <!-- /.col-->
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                            <div class="card-header">Deseja um relatório de outro mês? <strong></strong>
+                        <br>
+                        <br>
+                        <form action="/rankingmes" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                <label class="col-md-3 col-form-label">Mês</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" class="selectpicker" data-live-search="true"
+                                            name="rankingmes">
+                                        <option data-tokens="ketchup mustard" selected="selected"></option>
+                                        <option data-tokens="ketchup mustard">01</option>
+                                        <option data-tokens="ketchup mustard">02</option>
+                                        <option data-tokens="ketchup mustard">03</option>
+                                        <option data-tokens="ketchup mustard">04</option>
+                                        <option data-tokens="ketchup mustard">05</option>
+                                        <option data-tokens="ketchup mustard">06</option>
+                                        <option data-tokens="ketchup mustard">07</option>
+                                        <option data-tokens="ketchup mustard">08</option>
+                                        <option data-tokens="ketchup mustard">09</option>
+                                        <option data-tokens="ketchup mustard">10</option>
+                                        <option data-tokens="ketchup mustard">11</option>
+                                        <option data-tokens="ketchup mustard">12</option>
+                                    </select>
+
+                                    <span class="help-block">Selecione o mês caso deseje visualizar outro mês!</span>
+                                </div>
+                                <label class="col-md-3 col-form-label">Ano</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" class="selectpicker" data-live-search="true"
+                                            name="rankingmesano">
+                                        <option data-tokens="ketchup mustard" selected="selected">{{ano}}</option>
+                                        {% for i in "2020"|rjust:"2030"|make_list %}
+                                            {% if  forloop.counter >= 2020 %}
+                                                <option data-tokens="ketchup mustard">{{ forloop.counter }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </select>
+
+                                    <span class="help-block">Selecione o ano caso deseje visualizar outro ano!</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success" role="button">Visualizar ranking do mês
+                                selecionado
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                </div>
+                </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="card-header">Ranking de vendedores em <strong>{{mesvendedores}}</strong>
+                    <div class="card-body">
+
+                        <!-- /.col-->
+
+                        <!-- /.row-->
+                        <table class="table table-responsive-sm table-hover table-outline mb-0">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>#</th>
+                                <th class="text-center">
+                                    <svg class="c-icon">
+                                        <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-people"></use>
+                                    </svg>
+                                </th>
+                                <th>Vendedor</th>
+                                <th>Eficiência</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in vendedoresmes %}
+                            <tr>
+                                <td><strong>{{forloop.counter}}</strong></td>
+                                <td class="text-center">
+                                    <div class="c-avatar"><img class="c-avatar-img"
+                                                               src='/static/assets/img/avatars/avatar.png'
+                                                               alt="user@email.com"><span
+                                            class="c-avatar-status bg-success"></span></div>
+                                </td>
+                                <td>
+                                    <div>{{item.0}}</div>
+                                </td>
+                                <td>
+                                    <div class="clearfix">
+                                        <div class="float-left"><strong>{{item.1}}%</strong></div>
+                                        <div class="float-right"><small class="text-muted">{{mesvendedores}}</small>
+                                        </div>
+                                    </div>
+                                    <div class="progress progress-xs">
+                                        {% if item.1 < 70 %}
+                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                             style="width: {{item.1}}%" aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {% if item.1 >= 80 %}
+                                        <div class="progress-bar bg-gradient-success" role="progressbar"
+                                             style="width: {{item.1}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {%if item.1 >= 70 and item.1 < 80%}
+                                        <div class="progress-bar bg-gradient-warning" role="progressbar"
+                                             style="width: {{item.1}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                    </div>
+                                </td>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">Melhores Vendedores de Sempre</div>
+                    <div class="card-body">
+
+                        <!-- /.col-->
+
+                        <!-- /.row-->
+                        <table class="table table-responsive-sm table-hover table-outline mb-0">
+                            <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">
+                                    <svg class="c-icon">
+                                        <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-people"></use>
+                                    </svg>
+                                </th>
+                                <th>Vendedor</th>
+                                <th>Eficiência</th>
+                                <th>Activity</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="c-avatar"><img class="c-avatar-img"
+                                                               src='/static/assets/img/avatars/avatar.png'
+                                                               alt="user@email.com"><span
+                                            class="c-avatar-status bg-success"></span></div>
+                                </td>
+                                <td>
+                                    <div>{{vendedor1}}</div>
+                                    <div class="small text-muted">Registered: {{vendedor1.date_joined}}</div>
+                                </td>
+                                <td>
+                                    <div class="clearfix">
+                                        <div class="float-left"><strong>{{vendedor1A}}%</strong></div>
+                                        <div class="float-right"><small class="text-muted">{{vendedor1.date_joined.date}}
+                                            - {{data_atual}}</small></div>
+                                    </div>
+                                    <div class="progress progress-xs">
+                                        {% if vendedor1A < 70 %}
+                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                             style="width: {{vendedor1A}}%" aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {% if vendedor1A >= 80 %}
+                                        <div class="progress-bar bg-gradient-success" role="progressbar"
+                                             style="width: {{vendedor1A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {%if vendedor1A >= 70 and vendedor1A < 80%}
+                                        <div class="progress-bar bg-gradient-warning" role="progressbar"
+                                             style="width: {{vendedor1A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="small text-muted">Last login</div>
+                                    <strong>{{vendedor1.last_login}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="c-avatar"><img class="c-avatar-img"
+                                                               src='/static/assets/img/avatars/avatar.png'
+                                                               alt="user@email.com"><span
+                                            class="c-avatar-status bg-danger"></span></div>
+                                </td>
+                                <td>
+                                    <div>{{vendedor2}}</div>
+                                    <div class="small text-muted">Registered: {{vendedor2.date_joined}}</div>
+                                </td>
+                                <td>
+                                    <div class="clearfix">
+                                        <div class="float-left"><strong>{{vendedor2A}}%</strong></div>
+                                        <div class="float-right"><small class="text-muted">{{vendedor2.date_joined.date}}
+                                            - {{data_atual}}</small></div>
+                                    </div>
+                                    <div class="progress progress-xs">
+                                        {% if vendedor2A < 70 %}
+                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                             style="width: {{vendedor2A}}%" aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {% if vendedor2A >= 80 %}
+                                        <div class="progress-bar bg-gradient-success" role="progressbar"
+                                             style="width: {{vendedor2A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {%if vendedor2A >= 70 and vendedor2A < 80%}
+                                        <div class="progress-bar bg-gradient-warning" role="progressbar"
+                                             style="width: {{vendedor2A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="small text-muted">Last login</div>
+                                    <strong>{{vendedor2.last_login}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="c-avatar"><img class="c-avatar-img"
+                                                               src='/static/assets/img/avatars/avatar.png'
+                                                               alt="user@email.com"><span
+                                            class="c-avatar-status bg-warning"></span></div>
+                                </td>
+                                <td>
+                                    <div>{{vendedor3}}</div>
+                                    <div class="small text-muted">Registered: {{vendedor3.date_joined}}</div>
+                                </td>
+                                <td>
+                                    <div class="clearfix">
+                                        <div class="float-left"><strong>{{vendedor3A}}%</strong></div>
+                                        <div class="float-right"><small class="text-muted">{{vendedor3.date_joined.date}}
+                                            - {{data_atual}}</small></div>
+                                    </div>
+                                    <div class="progress progress-xs">
+                                        {% if vendedor3A < 70 %}
+                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                             style="width: {{vendedor3A}}%" aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {% if vendedor3A >= 80 %}
+                                        <div class="progress-bar bg-gradient-success" role="progressbar"
+                                             style="width: {{vendedor3A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {%if vendedor3A >= 70 and vendedor3A < 80%}
+                                        <div class="progress-bar bg-gradient-warning" role="progressbar"
+                                             style="width: {{vendedor3A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="small text-muted">Last login</div>
+                                    <strong>{{vendedor3.last_login}}</strong>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="text-center">
+                                    <div class="c-avatar"><img class="c-avatar-img"
+                                                               src='/static/assets/img/avatars/avatar.png'
+                                                               alt="user@email.com"><span
+                                            class="c-avatar-status bg-secondary"></span></div>
+                                </td>
+                                <td>
+                                    <div>{{vendedor4}}</div>
+                                    <div class="small text-muted">Registered: {{vendedor4.date_joined}}</div>
+                                </td>
+                                <td>
+                                    <div class="clearfix">
+                                        <div class="float-left"><strong>{{vendedor4A}}%</strong></div>
+                                        <div class="float-right"><small class="text-muted">{{vendedor4.date_joined.date}}
+                                            - {{data_atual}}</small></div>
+                                    </div>
+                                    <div class="progress progress-xs">
+                                        {% if vendedor4A < 70 %}
+                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                             style="width: {{vendedor4A}}%" aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {% if vendedor4A >= 80 %}
+                                        <div class="progress-bar bg-gradient-success" role="progressbar"
+                                             style="width: {{vendedor4A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {%if vendedor4A >= 70 and vendedor4A < 80%}
+                                        <div class="progress-bar bg-gradient-warning" role="progressbar"
+                                             style="width: {{vendedor4A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="small text-muted">Last login</div>
+                                    <strong>{{vendedor4.last_login}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="c-avatar"><img class="c-avatar-img"
+                                                               src='/static/assets/img/avatars/avatar.png'
+                                                               alt="user@email.com"><span
+                                            class="c-avatar-status bg-success"></span></div>
+                                </td>
+                                <td>
+                                    <div>{{vendedor5}}</div>
+                                    <div class="small text-muted">Registered: {{vendedor5.date_joined}}</div>
+                                </td>
+                                <td>
+                                    <div class="clearfix">
+                                        <div class="float-left"><strong>{{vendedor5A}}%</strong></div>
+                                        <div class="float-right"><small class="text-muted">{{vendedor5.date_joined.date}}
+                                            - {{data_atual}}</small></div>
+                                    </div>
+                                    <div class="progress progress-xs">
+                                        {% if vendedor5A < 70 %}
+                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                             style="width: {{vendedor5A}}%" aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {% if vendedor5A >= 80 %}
+                                        <div class="progress-bar bg-gradient-success" role="progressbar"
+                                             style="width: {{vendedor5A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {%if vendedor5A >= 70 and vendedor5A < 80%}
+                                        <div class="progress-bar bg-gradient-warning" role="progressbar"
+                                             style="width: {{vendedor5A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="small text-muted">Last login</div>
+                                    <strong>{{vendedor5.last_login}}</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-center">
+                                    <div class="c-avatar"><img class="c-avatar-img"
+                                                               src='/static/assets/img/avatars/avatar.png'
+                                                               alt="user@email.com"><span
+                                            class="c-avatar-status bg-danger"></span></div>
+                                </td>
+                                <td>
+                                    <div>{{vendedor6}}</div>
+                                    <div class="small text-muted">Registered: {{vendedor6.date_joined}}</div>
+                                </td>
+                                <td>
+                                    <div class="clearfix">
+                                        <div class="float-left"><strong>{{vendedor6A}}%</strong></div>
+                                        <div class="float-right"><small class="text-muted">{{vendedor6.date_joined.date}}
+                                            - {{data_atual}}</small></div>
+                                    </div>
+                                    <div class="progress progress-xs">
+                                        {% if vendedor6A < 70 %}
+                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                             style="width: {{vendedor6A}}%" aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {% if vendedor6A >= 80 %}
+                                        <div class="progress-bar bg-gradient-success" role="progressbar"
+                                             style="width: {{vendedor6A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                        {%if vendedor6A >= 70 and vendedor6A < 80%}
+                                        <div class="progress-bar bg-gradient-warning" role="progressbar"
+                                             style="width: {{vendedor6A}}%" aria-valuenow="0" aria-valuemin="0"
+                                             aria-valuemax="100"></div>
+                                        {%endif%}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="small text-muted">Last login</div>
+                                    <strong>{{vendedor6.last_login}}</strong>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-responsive-sm table-hover table-outline mb-0">
+                            <thead class="thead-light">
+                            <tr>
+                                <th class="text-center">
+                                    <svg class="c-icon">
+                                        <use xlink:href="/static/assets/vendors/@coreui/icons/svg/free.svg#cil-notes"></use>
+                                    </svg>
+                                    Proporção de Papers Durante a Semana: Azul: venda - Vermelho: não venda
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="row">
+                                        <!-- /.col-->
+                                        <!-- /.col-->
+                                    </div>
+                                    <!-- /.row-->
+                                    <tr>
+                                        <td>
+                                            <div class="progress-group mb-4">
+                                                <div class="progress-group-prepend"><span class="progress-group-text">Dia Atual</span>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    {{totaldiavendasegunda1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                             style="width: {{totaldiavendasegunda}}%" aria-valuenow="34"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    {{totaldianaovendasegunda1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                                             style="width: {{totaldianaovendasegunda}}%"
+                                                             aria-valuenow="78" aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="progress-group mb-4">
+                                                <div class="progress-group-prepend"><span class="progress-group-text">Dia Anterior</span>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    {{totaldiavendaterca1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                             style="width: {{totaldiavendaterca}}%" aria-valuenow="56"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    {{totaldianaovendaterca1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                                             style="width: {{totaldianaovendaterca}}%"
+                                                             aria-valuenow="94" aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </tr>
+                                    </td>
+                                    <tr>
+                                        <td>
+                                            <div class="progress-group mb-4">
+                                                <div class="progress-group-prepend"><span class="progress-group-text">2 Dias Atrás</span>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    {{totaldiavendaquarta1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                             style="width: {{totaldiavendaquarta}}%" aria-valuenow="12"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    {{totaldianaovendaquarta1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                                             style="width: {{totaldianaovendaquarta}}%"
+                                                             aria-valuenow="67" aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </tr>
+                                    </td>
+                                    <tr>
+                                        <td>
+                                            <div class="progress-group mb-4">
+                                                <div class="progress-group-prepend"><span class="progress-group-text">3 Dias Atrás</span>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    {{totaldiavendaquinta1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                             style="width: {{totaldiavendaquinta}}%" aria-valuenow="43"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    {{totaldianaovendaquinta1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                                             style="width: {{totaldianaovendaquinta}}%"
+                                                             aria-valuenow="91" aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </tr>
+                                    </td>
+                                    <tr>
+                                        <td>
+                                            <div class="progress-group mb-4">
+                                                <div class="progress-group-prepend"><span class="progress-group-text">4 Dias Atrás</span>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    {{totaldiavendasexta1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                             style="width: {{totaldiavendasexta}}%" aria-valuenow="22"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    {{totaldianaovendasexta1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                                             style="width: {{totaldianaovendasexta}}%"
+                                                             aria-valuenow="73" aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </tr>
+                                    </td>
+                                    <tr>
+                                        <td>
+                                            <div class="progress-group mb-4">
+                                                <div class="progress-group-prepend"><span class="progress-group-text">5 Dias Atrás</span>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    {{totaldiavendasabado1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                             style="width: {{totaldiavendasabado}}%" aria-valuenow="53"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    {{totaldianaovendasabado1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                                             style="width: {{totaldianaovendasabado}}%"
+                                                             aria-valuenow="82" aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </tr>
+                                    </td>
+                                    <tr>
+                                        <td>
+                                            <div class="progress-group mb-4">
+                                                <div class="progress-group-prepend"><span class="progress-group-text">6 Dias Atrás</span>
+                                                </div>
+                                                <div class="progress-group-bars">
+                                                    {{totaldiavendadomingo1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-info" role="progressbar"
+                                                             style="width: {{totaldiavendadomingo}}%" aria-valuenow="9"
+                                                             aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                    {{totaldianaovendadomingo1}}
+                                                    <div class="progress progress-xs">
+                                                        <div class="progress-bar bg-gradient-danger" role="progressbar"
+                                                             style="width: {{totaldianaovendadomingo}}%"
+                                                             aria-valuenow="69" aria-valuemin="0"
+                                                             aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </tr>
+                                    </td>
+                                </div>
+                                <!-- /.col-->
+
+                                <!-- /.row-->
+
+                            </div>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.col-->
+            </div>
+
+            <!-- /.row-->
+        </div>
+    </div>
+    </div>
+    </div>
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- Plugins and scripts required by this view-->
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/vendors/@coreui/utils/js/coreui-utils.js"></script>
+<script src="/static/assets/js/main.js"></script>
+
+{% endblock javascripts %}

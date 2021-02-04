@@ -1,0 +1,40 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header">Número da proposta já existe na base de dados!</div>
+        <div class="card-body">
+            <div class="container" align="center">
+                <a class="btn btn-lg btn-primary" href="/usepaper" role="button">Clique para Criar um Paper de Venda
+                    &raquo;</a>
+                <a class="btn btn-lg btn-secondary" href="/usepapernaovenda" role="button">Clique para Criar um Paper de
+                    Não Venda &raquo;</a><br><br>
+                <button class="btn btn-lg btn-secondary" onclick="window.history.go(-1)" role="button">Clique para
+                    retornar ao Paper preenchido &raquo;
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}

@@ -1,0 +1,215 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header" align="center">Listas de Papers</div>
+        <div class="card-body">
+            <div class="container">
+                <br><br>
+                <a class="btn btn-success" role='button' href='usepaper'>Gerar Paper de Venda</a>
+                <a class="btn btn-secondary" role='button' href='usepapernaovenda'>Gerar Paper de Não venda</a>
+                <br><br>
+                <h1>Listar de Itens do Paper de Não Venda</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Tipo</th>
+                        <th scope="col">Grupo</th>
+                        <th scope="col">Código</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Descrição</th>
+                        <th scope="col">Peso</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for paper in lista_itens_proceso %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags}}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <a class="btn btn-danger" role='button' href='/paperitens/excluir/{{ paper.id }}'
+                               onclick="return confirm('Are you sure you want to delete this item?');">Excluir
+                            </a>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+                        {% for paper in lista_itens_tecnica %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags }}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+
+                        {% for paper in lista_itens_comportamental %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags }}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+
+                        {% for paper in lista_itensErro %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome }}</td>
+                        <td>{{ paper.descricao }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+                        {% for paper in lista_itens_ge %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags }}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h1 align="center">Listar de Itens do Paper de Venda</h1>
+                <table class="table table-striped">
+                    <tbody>
+                    {% for paper in lista_itens_proceso_venda %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags }}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+                        {% for paper in lista_itens_tecnica_venda %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags }}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+
+                        {% for paper in lista_itens_comportamental_venda %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags }}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+
+                        {% for paper in lista_itensErro_venda %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags }}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+
+                        {% for paper in lista_itens_ge %}
+                    <tr>
+                        <th scope="row">{{ paper.tipo }}</th>
+                        <td>{{ paper.grupo }}</td>
+                        <td>{{ paper.cod }}</td>
+                        <td>{{ paper.nome|striptags }}</td>
+                        <td>{{ paper.descricao|striptags }}</td>
+                        <td> {{paper.peso}}</td>
+                        <td>
+                            <button class="btn btn-danger" role='button'
+                                    onclick="window.location.href='/paperitens/excluir/{{ paper.id }}'">Excluir
+                            </button>
+                            <a class="btn btn-primary" role="button" href='/paperitens/editar/{{paper.id}}'>Editar</a>
+                        </td>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}

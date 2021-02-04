@@ -1,0 +1,299 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+<script>
+    function verificaValor() {
+        if (document.getElementById('valor1').checked == true && document.getElementById('valor2').value.length < 1) {
+            alert('Existem campos de observações pendentes!');
+            return document.getElementById("valor2").focus;
+        }
+    };
+
+    function pegaValor() {
+        var retorno = document.getElementById("hidden_id").value
+        var elemento = document.getElementById('valor3').value;
+        document.getElementById('valor2_' + retorno).value = elemento;
+        document.getElementById('valor4_' + retorno).value = 'Observação Cadastrada';
+        document.getElementById('valor4_' + retorno).style.background = "";
+        document.getElementById('valor3').value = '';
+    };
+
+</script>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+</head>
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header" align="center">Paper de Não Venda</div>
+        <div class="card-body">
+
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header"><strong>Preencha o formulário com os dados para gerar o Paper. Campos
+                            com * são obrigatórios!</strong></div>
+                        <div class="card-body">
+                            <form action="/usepapernaovenda/createpaper" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Data da Monitoria</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="dataMonitoria" type="date" name="dataMonitoria"
+                                               placeholder="date" required><span class="help-block">Please enter a valid date</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Data da Ligação</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="data_ligacao" type="date" name="data_ligacao"
+                                               placeholder="date" required><span class="help-block">Please enter a valid date</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Telefone</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="telefone" type="text" name="telefone"
+                                               placeholder="Insira o número de telefone" required><span class="help-block">Por favor, digite o telefone!</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Operador</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" class="selectpicker" data-live-search="true"
+                                                name="idUser" required>
+                                            <option data-tokens="ketchup mustard" selected="selected"></option>
+                                            {% for item in listaLogins %}
+                                            <option data-tokens="ketchup mustard">{{ item }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <span class="help-block">Por favor, selecione o vendedor!</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Gravação da Ligação</label>
+                                    <div class="col-md-9">
+                                        <input id="audio" type="file" name="audio" accept=".mp3" required>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <ul class="nav nav-pills">
+                                        <li class="active"><a data-toggle="pill" class="btn btn-primary"
+                                                              onclick="verificaValor()" href="#home">Processo</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a data-toggle="pill" class="btn btn-primary" onclick="verificaValor()"
+                                               href="#menu1">Técnica de Venda</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a data-toggle="pill" class="btn btn-primary" onclick="verificaValor()"
+                                               href="#menu2">Comportamental</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a data-toggle="pill" class="btn btn-primary" onclick="verificaValor()"
+                                               href="#menu3">Erros Graves</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <li><a data-toggle="pill" class="btn btn-primary" onclick="verificaValor()"
+                                               href="#menu4">Itens GE</a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button type="submit" id="btn-submit" class="btn btn-success"
+                                                onclick="verificaValor()" role="button">Gerar Paper
+                                        </button>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="home" class="tab-pane fade in active">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Tipo</th>
+                                                    <th scope="col">Grupo</th>
+                                                    <th scope="col">Código</th>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col">Descrição</th>
+                                                    <th scope="col">Peso</th>
+                                                    <th scope="col">Incluir</th>
+                                                    <th scope="col">Observações</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in processos %}
+                                                <tr>
+                                                    <th scope="row">{{ item.tipo }}</th>
+                                                    <td>{{ item.grupo}}</td>
+                                                    <td>{{ item.cod}}</td>
+                                                    <td>{{ item.nome|striptags }}</td>
+                                                    <td>{{ item.descricao|striptags }}</td>
+                                                    <td> {{item.peso}}</td>
+                                                    <td><input id="valor1" type="checkbox" value="{{item.id}}"
+                                                               name="itens" class="largerCheckbox"></td>
+                                                    <td><textarea id="valor2" name="obs" rows="4" cols="30"></textarea>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="menu1" class="tab-pane fade">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Tipo</th>
+                                                    <th scope="col">Grupo</th>
+                                                    <th scope="col">Código</th>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col">Descrição</th>
+                                                    <th scope="col">Peso</th>
+                                                    <th scope="col">Incluir</th>
+                                                    <th scope="col">Observações</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in tecnicas %}
+                                                <tr>
+                                                    <th scope="row">{{ item.tipo }}</th>
+                                                    <td>{{ item.grupo}}</td>
+                                                    <td>{{ item.cod}}</td>
+                                                    <td>{{ item.nome|striptags }}</td>
+                                                    <td>{{ item.descricao|striptags }}</td>
+                                                    <td> {{item.peso}}</td>
+                                                    <td><input id="valor1" type="checkbox" value="{{item.id}}"
+                                                               name="itens" class="largerCheckbox"></td>
+                                                    <td><textarea id="valor2" name="obs" rows="4" cols="30"></textarea>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="menu2" class="tab-pane fade">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Tipo</th>
+                                                    <th scope="col">Grupo</th>
+                                                    <th scope="col">Código</th>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col">Descrição</th>
+                                                    <th scope="col">Peso</th>
+                                                    <th scope="col">Incluir</th>
+                                                    <th scope="col">Observações</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in comportamental %}
+                                                <tr>
+                                                    <th scope="row">{{ item.tipo }}</th>
+                                                    <td>{{ item.grupo}}</td>
+                                                    <td>{{ item.cod}}</td>
+                                                    <td>{{ item.nome|striptags }}</td>
+                                                    <td>{{ item.descricao|striptags }}</td>
+                                                    <td> {{item.peso}}</td>
+                                                    <td><input id="valor1" type="checkbox" value="{{item.id}}"
+                                                               name="itens" class="largerCheckbox"></td>
+                                                    <td><textarea id="valor2" name="obs" rows="4" cols="30"></textarea>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div id="menu3" class="tab-pane fade">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Tipo</th>
+                                                    <th scope="col">Grupo</th>
+                                                    <th scope="col">Código</th>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col">Descrição</th>
+                                                    <th scope="col">Peso</th>
+                                                    <th scope="col">Incluir</th>
+                                                    <th scope="col">Observações</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in itensErro %}
+                                                <tr>
+                                                    <th scope="row">{{ item.tipo }}</th>
+                                                    <td>{{ item.grupo}}</td>
+                                                    <td>{{ item.cod}}</td>
+                                                    <td>{{ item.nome|striptags }}</td>
+                                                    <td>{{ item.descricao|striptags }}</td>
+                                                    <td> {{item.peso}}</td>
+                                                    <td><input id="valor1" type="checkbox" value="{{item.id}}"
+                                                               name="itens" class="largerCheckbox"></td>
+                                                    <td><textarea id="valor2" name="obs" rows="4" cols="30"></textarea>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                        <div id="menu4" class="tab-pane fade">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Tipo</th>
+                                                    <th scope="col">Grupo</th>
+                                                    <th scope="col">Código</th>
+                                                    <th scope="col">Nome</th>
+                                                    <th scope="col">Descrição</th>
+                                                    <th scope="col">Peso</th>
+                                                    <th scope="col">Incluir</th>
+                                                    <th scope="col">Observações</th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for item in lista_itens_ge %}
+                                                <tr>
+                                                    <th scope="row">{{ item.tipo }}</th>
+                                                    <td>{{ item.grupo}}</td>
+                                                    <td>{{ item.cod}}</td>
+                                                    <td>{{ item.nome|striptags }}</td>
+                                                    <td>{{ item.descricao|striptags }}</td>
+                                                    <td> {{item.peso}}</td>
+                                                    <td><input id="valor1" type="checkbox" value="{{item.id}}"
+                                                               name="itens" class="largerCheckbox"></td>
+                                                    <td><textarea id="valor2" name="obs" rows="4" cols="30"></textarea>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <br><br>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+</script>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}

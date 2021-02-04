@@ -1,0 +1,148 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+</head>
+
+<script>
+    function alerta() {
+        alert('Atualização realizada com sucesso!');
+        window.location.reload();
+    };
+
+
+</script>
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header"><h4>Editar Item</h4></div>
+        <div class="card-body">
+
+
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header"><strong>Editar Item do Paper</strong></div>
+                        <div class="card-body">
+                            <form class="form-horizontal"
+                                  action="paperitens/editar/paperitens/editar_item_salvar/{{ itens.id}}" method="post"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Versão</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="versao" type="text" name="versao"
+                                               value="{{itens.versao}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Tipo</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="tipo" value="{{itens.tipo}}">
+                                            <option value="{{itens.tipo}}">{{itens.tipo}}</option>
+                                            <option value="Venda">Venda</option>
+                                            <option value="Não venda">Não Venda</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Grupo</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="grupo" value="{{itens.grupo}}">
+                                            <option value="{{itens.grupo}}">{{itens.grupo}}</option>
+                                            <option value="Processo">Processo</option>
+                                            <option value="Tecnica de venda">Técnica de Venda</option>
+                                            <option value="Pontos fortes">Comportamental</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Código</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="cod" type="text" name="cod"
+                                               value="{{itens.cod}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Subitem</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="nome" name="nome"
+                                                  rows="9">{{itens.nome}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Descrição</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="descricao" name="descricao" rows="9">{{itens.descricao}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Peso</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="peso" type="text" name="peso"
+                                               value="{{itens.peso}}">
+                                    </div>
+                                </div>
+
+                                <div class="card-footer">
+                                    <button class="btn btn-sm btn-primary" type="submit" onclick="alerta()"> Salvar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#nome'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#descricao'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}

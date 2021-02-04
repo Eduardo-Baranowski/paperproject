@@ -1,0 +1,170 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.ckeditor.com/ckeditor5/23.0.0/classic/ckeditor.js"></script>
+</head>
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header"><h4>Editar Item</h4></div>
+        <div class="card-body">
+
+
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header"><strong>Editar Item Associado</strong> Elements</div>
+                        <div class="card-body">
+                            <form class="form-horizontal"
+                                  action="paperitensassociados/editar/paperitensassociados/editar_item_associado_salvar/{{ itens.pk}}"
+                                  method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Id Paper</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="idpaper">
+                                            <option>{{itens.paper.id}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Id Paper Item</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="idpaperItem">
+                                            <option>{{itens.paperItem.id}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Selecione 1 Para Alterar</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="contalteracao">
+                                            <option>{{itens.contAlteracao}}</option>
+                                            <option>1</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Grupo</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="grupo">
+                                            <option>{{itens.paperItem.grupo}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                {% if itens.paperItem.grupo == "Erro grave" %}
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Peso</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="peso">
+                                            <option>{{itens.peso}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Resposta</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="resposta" type="text" name="resposta"
+                                               value="{{itens.resposta}}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Observação</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="valor2" name="obs"
+                                                  rows="9">{{itens.obs}}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Contestação</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="valor3" name="contestacao" rows="9">{{itens.contestacao}}</textarea>
+                                    </div>
+                                </div>
+
+                                {% else %}
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Peso</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="peso" name="peso" value="{{itens.peso}}"
+                                               type="number">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Observação</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="valor2" name="obs"
+                                                  rows="9">{{itens.obs}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label">Contestação</label>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control" id="valor3" name="contestacao" rows="9">{{itens.contestacao}}</textarea>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="card-footer">
+                                    <button class="btn btn-sm btn-primary" type="submit"> Salvar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#valor2'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+<script>
+    ClassicEditor
+        .create(document.querySelector('#valor3'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}

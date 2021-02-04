@@ -1,0 +1,66 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Charts {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+
+<link href="/static/assets/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<main class="c-main">
+
+    <div class="card">
+        <div class="card-header">Gerenciar Versões</div>
+        <div class="card-body">
+
+
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-header"><strong>Gerenciar Versões do Paper</strong></div>
+                        <div class="card-body">
+                            <form class="form-horizontal" action="/visualizaritens/visualiza" method="post"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label" class="label_ver">Versões</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="versao">
+                                            {% for versao in versoes %}
+                                            <option value="{{versao}}">{{versao.id}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button class="btn btn-sm btn-primary" type="submit"> Visualizar Itens da Versão
+                                        Selecionada
+                                    </button>
+                                    <a class="btn btn-sm btn-dark" role='button' href='geranovaversao'>Gerar Nova Versão
+                                        do Paper</a>
+                                    <a class="btn btn-sm btn-secondary" role='button' href='usepaper'>Gerar Paper de
+                                        Venda</a>
+                                    <a class="btn btn-sm btn-behance" role='button' href='usepapernaovenda'>Gerar Paper
+                                        de Não venda</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<script src="/static/assets/vendors/@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+<script src="/static/assets/js/charts.js"></script>
+
+{% endblock javascripts %}
