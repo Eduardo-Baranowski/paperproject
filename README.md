@@ -1,40 +1,4 @@
-# [Django Dashboard CoreUI](https://appseed.us/admin-dashboards/django-dashboard-coreui)
 
-> **Open-Source Admin Dashboard** coded in **Django Framework** by **AppSeed** [Web App Generator](https://appseed.us/app-generator) - Features:
-
-- Base UI Kit: **CoreUI Dashboard** (Free Version) provided by **CoreUI** agency
-- Jinja2 Theme: [Jinja2 Theme - CoreUI (Free Version)](https://github.com/app-generator/theme-jinja2-coreui)
-- UI-Ready app, SQLite Database, Django Native ORM
-- Modular design, clean code-base
-- Session-Based Authentication, Forms validation
-- Deployment scripts: Docker, Gunicorn / Nginx
-- **[MIT License](https://github.com/app-generator/license-mit)**
-- Free support via **Github** issues tracker
-- Paid 24/7 Live Support via [Discord](https://discord.gg/fZC6hup).
-
-> Links
-
-- [Django Dashboard CoreUI](https://django-dashboard-coreui.appseed.us/) - LIVE Demo
-- [Django Dashboard CoreUI](https://appseed.us/admin-dashboards/django-dashboard-coreui) - Official product page
-- More [Django Admin Dashboards](https://appseed.us/admin-dashboards/django) - index hosted by **[AppSeed](https://appseed.us)**
-- [Open-Source Admin Dashboards](https://appseed.us/admin-dashboards/open-source) - index hosted by **[AppSeed](https://appseed.us)**
-
-<br />
-
-## Want more? Go PRO!
-
-PRO versions include **Premium UI Kits**, Lifetime updates and **24/7 LIVE Support** (via [Discord](https://discord.gg/fZC6hup))
-
-| [Django Gradient PRO](https://appseed.us/admin-dashboards/django-dashboard-gradient-pro) | [Django Dashboard Black PRO](https://appseed.us/admin-dashboards/django-dashboard-black-pro) | [Django Dashboard Argon PRO](https://appseed.us/admin-dashboards/django-dashboard-argon-pro) |
-| --- | --- | --- |
-| [![Django Gradient PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-gradient-pro/master/media/django-dashboard-gradient-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-gradient-pro) | [![Django Dashboard Black PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-black-pro/master/media/django-dashboard-black-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-black-pro) | [![Django Dashboard Argon PRO](https://raw.githubusercontent.com/app-generator/django-dashboard-argon-pro/master/media/django-dashboard-argon-pro-screen.png)](https://appseed.us/admin-dashboards/django-dashboard-argon-pro)
-
-<br />
-<br />
-
-![Django Dashboard CoreUI - Template project provided by AppSeed.](https://raw.githubusercontent.com/app-generator/django-dashboard-coreui/master/media/django-dashboard-coreui-screen.png)
-
-<br />
 
 ## How to use it
 
@@ -205,14 +169,3 @@ Serving on http://localhost:8001
 Visit `http://localhost:8001` in your browser. The app should be up & running.
 
 <br />
-
-## Credits & Links
-
-- [Django](https://www.djangoproject.com/) - The official website
-- [Boilerplate Code](https://appseed.us/boilerplate-code) - Index provided by **AppSeed**
-- [Boilerplate Code](https://github.com/app-generator/boilerplate-code) - Index published on Github
-
-<br />
-
----
-[Django Dashboard CoreUI](https://appseed.us/admin-dashboards/django-dashboard-coreui) - Provided by **AppSeed** [Web App Generator](https://appseed.us/app-generator).
